@@ -1,0 +1,44 @@
+﻿@using AspNetIdentityCoreApp.Web.SignUpModels;
+@{
+    ViewData["Title"] = "SignIn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+@model SignInViewModel
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Kullanici Giris Formu</h2>
+        <hr />
+        @if (TempData["SuccesMessage"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                @TempData["SuccesMessage"]
+            </div>
+        }
+        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+        <form asp-controller="Home" asp-action="SignIn" asp-route-returnUrl="@Context.Request.Query["returnUrl"]" method="post">
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label for="Email" class="col-md-4 col-form-label" asp-for="Email"></label>
+                    <input asp-for="Email" class="form-control">
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-md-8">
+                    <label for="Password" class="col-md-4 col-form-label" asp-for="Password"></label>
+                    <input asp-for="Password" class="form-control">
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </div>
+            </div>
+            <div class="mb-3 form-check">
+                <input class="form-check-input" asp-for="RememberMe" />
+                <label class="form-check-label" asp-for="RememberMe" for="exampleCheck1"></label>
+            </div>
+                <button type="submit" class="btn btn-primary">Sign In</button>
+        </form>
+    </div>
+</div>
+

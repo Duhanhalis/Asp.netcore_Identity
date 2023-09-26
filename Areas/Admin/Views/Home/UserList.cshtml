@@ -1,0 +1,25 @@
+﻿@using AspNetIdentityCoreApp.Web.Areas.Admin.Models;
+@{
+    ViewData["Title"] = "UserList";
+    Layout = "../Shared/_Layout.cshtml";
+}
+@model List<UserViewModel>
+<table class="table table-striped">
+    <thead>
+        <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Email</td>
+            </tr>
+        }
+    </tbody>
+</table>
