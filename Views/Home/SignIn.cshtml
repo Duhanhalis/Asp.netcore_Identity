@@ -33,9 +33,10 @@
                     <span class="text-danger" asp-validation-for="Password"></span>
                 </div>
             </div>
-            <div class="mb-3 form-check">
-                <input class="form-check-input" asp-for="RememberMe" />
-                <label class="form-check-label" asp-for="RememberMe" for="exampleCheck1"></label>
+            <div class="mb-3 form-check row justify-content-center align-items-center">
+                <input class="form-check-input col-3" asp-for="RememberMe" />
+                <label class="form-check-label col-3" asp-for="RememberMe" for="exampleCheck1"></label>
+                <a class="btn btn-link col-6 align-content-end" asp-controller="Home" asp-action="ForgetPassword">Sifremi Unutttum</a>
             </div>
                 <button type="submit" class="btn btn-primary">Sign In</button>
         </form>
