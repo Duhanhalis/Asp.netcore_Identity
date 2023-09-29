@@ -4,6 +4,7 @@ using AspNetIdentityCoreApp.Web.Models;
 using AspNetIdentityCoreApp.Web.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.FileProviders;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,7 +17,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.Configure<EmailService>(builder.Configuration.GetSection("EmailSettings"));
 builder.Services.AddIdentityWithExt();
-
+builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 builder.Services.AddScoped<IEmailService,EmailService>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {

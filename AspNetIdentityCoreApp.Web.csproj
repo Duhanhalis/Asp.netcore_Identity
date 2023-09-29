@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="wwwroot\user-picture\" />
   </ItemGroup>
 
 </Project>

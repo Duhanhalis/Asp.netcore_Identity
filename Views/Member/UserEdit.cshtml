@@ -1,0 +1,70 @@
+﻿@model AspNetIdentityCoreApp.Web.Models.UserEditViewModel
+
+@{
+    ViewData["Title"] = "userEdit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+}
+
+<h4>@ViewBag.Id</h4>
+<hr />
+<div class="row">
+    @if (TempData["SuccesMessage"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            @TempData["SuccesMessage"]
+        </div>
+    }
+    <div class="col-md-4">
+        <form asp-action="userEdit" asp-controller="Member" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group my-2">
+                <label asp-for="UserName" class="control-label"></label>
+                <input asp-for="UserName" class="form-control" />
+                <span asp-validation-for="UserName" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" type="email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Phone" class="control-label"></label>
+                <input asp-for="Phone" class="form-control" />
+                <span asp-validation-for="Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="BirthDate" class="control-label"></label>
+                <input asp-for="BirthDate" type="date" class="form-control" />
+                <span asp-validation-for="BirthDate" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="City" class="control-label"></label>
+                <input asp-for="City" class="form-control" />
+                <span asp-validation-for="City" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Picture" class="control-label"></label>
+                <input asp-for="Picture" type="file" class="form-control" />
+                <span asp-validation-for="Picture" class="text-danger"></span>
+            </div>
+            <div class="form-group my-2">
+                <label asp-for="Cinsiyet" class="control-label"></label>
+                <select class="form-select" asp-for="Cinsiyet" asp-items="ViewBag.cinsiyet">
+                    <option value=" ">Cinsiyet Seciniz</option>
+                </select>
+                <span asp-validation-for="Cinsiyet" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
