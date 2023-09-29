@@ -27,6 +27,7 @@ namespace AspNetIdentityCoreApp.Web.SignUpModels
 
         [Required(ErrorMessage = "Sifre Adi Bos Birakilamaz")]
         [Display(Name = "Sifre :")]
+        [MinLength(6, ErrorMessage = "Sifreniz En Az 6 Karekter Olabilir")]
         public string Password { get; set; }
 
         [Compare(nameof(Password),ErrorMessage = "Girmis Oldugunuz Sifreler Eslesmiyor")]

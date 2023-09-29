@@ -1,6 +1,6 @@
 ﻿namespace AspNetIdentityCoreApp.Web.Areas.Admin.Models
 {
-    public class UserViewModel
+    public class UserViewModels
     {
         public string? Id { get; set; }
         public string? Email { get; set; }
