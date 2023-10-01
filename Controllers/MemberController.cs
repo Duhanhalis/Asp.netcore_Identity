@@ -23,7 +23,12 @@ namespace AspNetIdentityCoreApp.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var currentUser = await _userManager.FindByNameAsync(User.Identity!.Name!);
-            var userViewModel = new UserViewModel { Email = currentUser!.Email,PhoneNumber=currentUser.PhoneNumber,UserName=currentUser.UserName };
+            var userViewModel = new UserViewModel { 
+                Email = currentUser!.Email,
+                PhoneNumber=currentUser.PhoneNumber,
+                UserName=currentUser.UserName,
+                PictureUrl = currentUser.Picture,
+            };
             return View(userViewModel);
         }
 
@@ -74,7 +79,7 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 Phone = currentUser.PhoneNumber,
                 BirthDate = currentUser.BirthDate,
                 City = currentUser.City,
-                Cinsiyet = currentUser.Gender
+                Cinsiyet = currentUser.Gender,
             };
             return View(userEditViewModel);
         }

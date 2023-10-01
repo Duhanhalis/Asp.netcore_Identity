@@ -5,6 +5,13 @@
 }
 
 @model UserViewModel
+
+<div class="row">
+    <div class="col col-4">
+        <user-picture-thumbnail picture-url="@Model.PictureUrl" style="height:250px;"></user-picture-thumbnail>
+    </div>
+    <div class="col col-6"></div>
+</div>
 <table class="table table-striped">
     <thead>
         <tr>

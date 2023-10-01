@@ -245,6 +245,26 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\2d67c4bc-470c-430a-8595-5e2e59adf3dd.webp",
+      "PackagePath": "staticwebassets\\user-picture\\2d67c4bc-470c-430a-8595-5e2e59adf3dd.webp"
+    },
+    {
+      "Id": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\6741a6b3-73c1-4cc9-af40-0bb08cfd8264.webp",
+      "PackagePath": "staticwebassets\\user-picture\\6741a6b3-73c1-4cc9-af40-0bb08cfd8264.webp"
+    },
+    {
+      "Id": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\8c265958-9fec-4f0f-b979-2c918909189d.png",
+      "PackagePath": "staticwebassets\\user-picture\\8c265958-9fec-4f0f-b979-2c918909189d.png"
+    },
+    {
+      "Id": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\d0ae5521-d3dc-45bf-8d23-5151558023c8.png",
+      "PackagePath": "staticwebassets\\user-picture\\d0ae5521-d3dc-45bf-8d23-5151558023c8.png"
+    },
+    {
+      "Id": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\default_user_picture.jpg",
+      "PackagePath": "staticwebassets\\user-picture\\default_user_picture.jpg"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.AspNetIdentityCoreApp.Web.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
