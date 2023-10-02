@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "tseOGCc8uLYzuzVx4Q9LSEwJlCPHHgU9c71Tv41jNi8=",
+  "Hash": "WLfaGTNExkFvQ1ceofov0MWWG7w6O4qp8TKzRDmIxnE=",
   "Source": "AspNetIdentityCoreApp.Web",
   "BasePath": "_content/AspNetIdentityCoreApp.Web",
   "Mode": "Default",
@@ -1120,6 +1120,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\user-picture\\8c265958-9fec-4f0f-b979-2c918909189d.png"
+    },
+    {
+      "Identity": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\b30751aa-e7f8-4c01-b3ac-eee78a1280e7.png",
+      "SourceId": "AspNetIdentityCoreApp.Web",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\",
+      "BasePath": "_content/AspNetIdentityCoreApp.Web",
+      "RelativePath": "user-picture/b30751aa-e7f8-4c01-b3ac-eee78a1280e7.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\user-picture\\b30751aa-e7f8-4c01-b3ac-eee78a1280e7.png"
     },
     {
       "Identity": "C:\\Users\\Duhan\\OneDrive\\Masaüstü\\Code\\C#\\Asp.net_Core\\AspNetCoreIdentityApp.Web\\AspNetIdentityCoreApp.Web\\wwwroot\\user-picture\\d0ae5521-d3dc-45bf-8d23-5151558023c8.png",
