@@ -1,5 +1,6 @@
 ﻿using AspNetIdentityCoreApp.Web.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.Metadata;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -132,6 +133,10 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 Cinsiyet = currentUser.Gender
             };
             return View(userEditViewModel);
+        }
+        public IActionResult AccessDenied(string ReturnUrl)
+        {
+            return View();
         }
     }
 }

@@ -24,6 +24,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcSG9tZVxVc2VyTGlzdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Duhan/OneDrive/Masaüstü/Code/C\#/Asp.net_Core/AspNetCoreIdentityApp.Web/AspNetIdentityCoreApp.Web/Areas/Admin/Views/Role/AssingRole.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZVxBc3NpbmdSb2xlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Duhan/OneDrive/Masaüstü/Code/C\#/Asp.net_Core/AspNetCoreIdentityApp.Web/AspNetIdentityCoreApp.Web/Areas/Admin/Views/Role/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcUm9sZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -70,6 +74,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Duhan/OneDrive/Masaüstü/Code/C\#/Asp.net_Core/AspNetCoreIdentityApp.Web/AspNetIdentityCoreApp.Web/Views/Home/SignUp.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTaWduVXAuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Duhan/OneDrive/Masaüstü/Code/C\#/Asp.net_Core/AspNetCoreIdentityApp.Web/AspNetIdentityCoreApp.Web/Views/Member/AccessDenied.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTWVtYmVyXEFjY2Vzc0RlbmllZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Duhan/OneDrive/Masaüstü/Code/C\#/Asp.net_Core/AspNetCoreIdentityApp.Web/AspNetIdentityCoreApp.Web/Views/Member/Index.cshtml]
