@@ -4,6 +4,7 @@ using AspNetIdentityCoreApp.Web.SignUpModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace AspNetIdentityCoreApp.Web.Controllers
 {
@@ -50,7 +51,7 @@ namespace AspNetIdentityCoreApp.Web.Controllers
 
             var signInResult = await _signInManager.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, true);
 
-            if(signInResult.Succeeded)
+            if (signInResult.Succeeded)
             {
                 return Redirect(returnUrl);
             }
@@ -59,9 +60,9 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 ModelState.AddModelErrorList(new List<string>() { "3 Defa Yanlis Girdiniz 3 Dk Giremeyeceksiniz." });
                 return View();
             }
-            ModelState.AddModelErrorList(new List<string>() { $"Email veya Sifre Yanlis",$" (Basarisiz Giris Sayisi : {await _UserManager.GetAccessFailedCountAsync(hasUser)})" });
-            
-            return View();  
+            ModelState.AddModelErrorList(new List<string>() { $"Email veya Sifre Yanlis", $" (Basarisiz Giris Sayisi : {await _UserManager.GetAccessFailedCountAsync(hasUser)})" });
+
+            return View();
         }
         public IActionResult SignUp()
         {
@@ -75,14 +76,24 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 return View();
             }
             var identityResult = await _UserManager.CreateAsync(new AppUser() { UserName = request.UserName, PhoneNumber = request.Phone, Email = request.Email }, request.Password);
-
-            if (identityResult.Succeeded)
+            if (!identityResult.Succeeded)
             {
-                TempData["SuccesMessage"] = "Uyelik Kayit Islemi Basarila Gerceklestirmistir.";
-                return View(nameof(HomeController.SignUp));
+                ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
+                return View();
             }
-            ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
-            return View();
+
+            var exchangeExpireClaim = new Claim("ExchangeExpireDate", DateTime.Now.AddDays(10).ToString());
+            var user = await _UserManager.FindByNameAsync(request.UserName);
+            var claimResult = await _UserManager.AddClaimAsync(user, exchangeExpireClaim);
+            if(!claimResult.Succeeded)
+            {
+                ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
+                return View();
+            }
+            TempData["SuccesMessage"] = "Uyelik Kayit Islemi Basarila Gerceklestirmistir.";
+            
+            return View(nameof(HomeController.SignUp));
+
         }
         public IActionResult ForgetPassword()
         {
@@ -99,12 +110,12 @@ namespace AspNetIdentityCoreApp.Web.Controllers
             }
             string passwordResetToken = await _UserManager.GeneratePasswordResetTokenAsync(hasUser);
             var passwordRestLink = Url.Action("ResetPassword", "Home", new { userId = hasUser.Id, Token = passwordResetToken },
-                HttpContext.Request.Scheme,"");
+                HttpContext.Request.Scheme, "");
 
-           await _emailService.SendResetPasswordEmail(passwordRestLink, hasUser.Email);
+            await _emailService.SendResetPasswordEmail(passwordRestLink, hasUser.Email);
 
-           TempData["Success"]= "Email Sifirlama Mail i Gonderilmistir";
-           return RedirectToAction(nameof(ForgetPassword));
+            TempData["Success"] = "Email Sifirlama Mail i Gonderilmistir";
+            return RedirectToAction(nameof(ForgetPassword));
         }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

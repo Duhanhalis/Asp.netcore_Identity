@@ -25,12 +25,13 @@ namespace AspNetIdentityCoreApp.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var userClaims = User.Claims.ToList();
-            var mail = User.Claims.FirstOrDefault(x=>x.Type == ClaimTypes.Role);
+            var mail = User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role);
             var currentUser = await _userManager.FindByNameAsync(User.Identity!.Name!);
-            var userViewModel = new UserViewModel { 
+            var userViewModel = new UserViewModel
+            {
                 Email = currentUser!.Email,
-                PhoneNumber=currentUser.PhoneNumber,
-                UserName=currentUser.UserName,
+                PhoneNumber = currentUser.PhoneNumber,
+                UserName = currentUser.UserName,
                 PictureUrl = currentUser.Picture,
             };
             return View(userViewModel);
@@ -47,21 +48,21 @@ namespace AspNetIdentityCoreApp.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> PasswordChangeAsync(PasswordChangeViewModel request)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return View();
             }
             var currentUser = await _userManager.FindByNameAsync(User.Identity.Name!);
             var checkOldPassword = await _userManager.CheckPasswordAsync(currentUser, request.PasswordOld);
 
-            if(!checkOldPassword)
+            if (!checkOldPassword)
             {
                 ModelState.AddModelError(string.Empty, "Eski Sifreniz Yanlis");
                 return View();
             }
-            var resultChangePassword = await _userManager.ChangePasswordAsync(currentUser,request.PasswordOld, request.PasswordNew);
+            var resultChangePassword = await _userManager.ChangePasswordAsync(currentUser, request.PasswordOld, request.PasswordNew);
 
-            if(!resultChangePassword.Succeeded)
+            if (!resultChangePassword.Succeeded)
             {
                 ModelState.AddModelErrorList(resultChangePassword.Errors);
             }
@@ -108,7 +109,7 @@ namespace AspNetIdentityCoreApp.Web.Controllers
             {
                 var wwwrootFolder = _fileProvider.GetDirectoryContents("wwwroot");
                 var randomFileName = $"{Guid.NewGuid().ToString()}{Path.GetExtension(request.Picture.FileName)}";
-                var newPicturePath = Path.Combine(wwwrootFolder.First(x=>x.Name=="user-picture").PhysicalPath,randomFileName);
+                var newPicturePath = Path.Combine(wwwrootFolder.First(x => x.Name == "user-picture").PhysicalPath, randomFileName);
 
                 using var stream = new FileStream(newPicturePath, FileMode.Create);
 
@@ -116,7 +117,7 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 currentUser.Picture = randomFileName;
             }
             var updateToUserResult = await _userManager.UpdateAsync(currentUser);
-            if(!updateToUserResult.Succeeded)
+            if (!updateToUserResult.Succeeded)
             {
                 ModelState.AddModelErrorList(updateToUserResult.Errors);
                 return View();
@@ -144,7 +145,7 @@ namespace AspNetIdentityCoreApp.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Claims()
         {
-            
+
             var userClaimList = User.Claims.Select(x => new ClaimViewModel()
             {
                 Issuer = x.Issuer,
@@ -157,6 +158,11 @@ namespace AspNetIdentityCoreApp.Web.Controllers
         [Authorize(Policy = "AnkaraPolicy")]
         [HttpGet]
         public IActionResult AnkaraPolicy()
+        {
+            return View();
+        }
+        [Authorize(Policy = "ExchangePolicy")]
+        public IActionResult ExchangePolicy()
         {
             return View();
         }
