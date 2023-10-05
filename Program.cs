@@ -1,7 +1,9 @@
+using AspNetIdentityCoreApp.Web.ClaimProvider;
 using AspNetIdentityCoreApp.Web.CustomValidations;
 using AspNetIdentityCoreApp.Web.Extenisons;
 using AspNetIdentityCoreApp.Web.Models;
 using AspNetIdentityCoreApp.Web.Services;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.FileProviders;
@@ -19,6 +21,7 @@ builder.Services.Configure<EmailService>(builder.Configuration.GetSection("Email
 builder.Services.AddIdentityWithExt();
 builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.GetCurrentDirectory()));
 builder.Services.AddScoped<IEmailService,EmailService>();
+builder.Services.AddScoped<IClaimsTransformation, UserClaimProvider>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     var cookieBuilder = new CookieBuilder();
@@ -31,7 +34,13 @@ builder.Services.ConfigureApplicationCookie(opt =>
     opt.ExpireTimeSpan = TimeSpan.FromDays(10);
     opt.SlidingExpiration = true;
 });
-
+builder.Services.AddAuthorization(option =>
+{
+    option.AddPolicy("AnkaraPolicy", opt =>
+    {
+        opt.RequireClaim("city", "Ankara");
+    });
+});
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
