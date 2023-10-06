@@ -48,9 +48,6 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Email veya Sifre Yanlis");
                 return View();
             }
-            
-
-           
             var signInResult = await _signInManager.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, true);
             if (signInResult.IsLockedOut)
             {

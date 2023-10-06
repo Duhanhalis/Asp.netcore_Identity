@@ -2,7 +2,9 @@ using AspNetIdentityCoreApp.Web.ClaimProvider;
 using AspNetIdentityCoreApp.Web.CustomValidations;
 using AspNetIdentityCoreApp.Web.Extenisons;
 using AspNetIdentityCoreApp.Web.Models;
+using AspNetIdentityCoreApp.Web.PermissionsRoot;
 using AspNetIdentityCoreApp.Web.Requirements;
+using AspNetIdentityCoreApp.Web.Seeds;
 using AspNetIdentityCoreApp.Web.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -26,18 +28,7 @@ builder.Services.AddScoped<IEmailService,EmailService>();
 builder.Services.AddScoped<IClaimsTransformation, UserClaimProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, ExchangeExpireReqirementHandler>();
 builder.Services.AddScoped<IAuthorizationHandler, ViolenceRequiremntHandler>();
-builder.Services.ConfigureApplicationCookie(opt =>
-{
-    var cookieBuilder = new CookieBuilder();
-    cookieBuilder.Name = "UdemyCookie";
 
-    opt.Cookie = cookieBuilder;
-    opt.LoginPath = new PathString("/Home/SignIn");
-    opt.LogoutPath = new PathString("/Member/LogOut");
-    opt.AccessDeniedPath = new PathString("/Member/AccessDenied");
-    opt.ExpireTimeSpan = TimeSpan.FromDays(10);
-    opt.SlidingExpiration = true;
-});
 builder.Services.AddAuthorization(option =>
 {
     option.AddPolicy("AnkaraPolicy", opt =>
@@ -52,8 +43,42 @@ builder.Services.AddAuthorization(option =>
     {
         opt.AddRequirements(new ViolenceRequirement());
     });
+    option.AddPolicy("OrderPermissionReadAndDelete", opt =>
+    {
+        opt.RequireClaim("Permission",Permissions.Order.Read, Permissions.Order.Delete, Permissions.Stock.Delete);
+    });
+
+    option.AddPolicy("OrderDelete", opt =>
+    {
+        opt.RequireClaim("Permission", Permissions.Order.Delete);
+    });
+    option.AddPolicy("OrderCreate", opt =>
+    {
+        opt.RequireClaim("Permission", Permissions.Order.Create);
+    });
+    option.AddPolicy("OrderUpdate", opt =>
+    {
+        opt.RequireClaim("Permission", Permissions.Order.Update);
+    });
+});
+builder.Services.ConfigureApplicationCookie(opt =>
+{
+    var cookieBuilder = new CookieBuilder();
+    cookieBuilder.Name = "UdemyCookie";
+
+    opt.Cookie = cookieBuilder;
+    opt.LoginPath = new PathString("/Home/SignIn");
+    opt.LogoutPath = new PathString("/Member/LogOut");
+    opt.AccessDeniedPath = new PathString("/Member/AccessDenied");
+    opt.ExpireTimeSpan = TimeSpan.FromDays(10);
+    opt.SlidingExpiration = true;
 });
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+    await PermissionSeed.Seed(roleManager); 
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {

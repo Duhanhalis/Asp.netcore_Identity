@@ -33,6 +33,9 @@
                             <a class="nav-link text-secondary" asp-area="" asp-controller="Member" asp-action="ViolencePolicy">ViolencePolicy</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-secondary" asp-area="" asp-controller="Order" asp-action="Index">OrderPolicy</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-secondary" asp-area="" asp-controller="Member" asp-action="ExchangePolicy">ExchangePolicy</a>
                         </li>
                         <li class="nav-item">
@@ -41,7 +44,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="SignUp">SignUp</a>
                         </li>
-                        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "Admin"))
+                        @if (User.HasClaim(x => x.Type == ClaimTypes.Role && x.Value == "AdminRole"))
                         {
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="" role="button" data-bs-toggle="dropdown">
