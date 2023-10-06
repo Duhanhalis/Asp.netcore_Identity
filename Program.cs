@@ -25,6 +25,7 @@ builder.Services.AddSingleton<IFileProvider>(new PhysicalFileProvider(Directory.
 builder.Services.AddScoped<IEmailService,EmailService>();
 builder.Services.AddScoped<IClaimsTransformation, UserClaimProvider>();
 builder.Services.AddScoped<IAuthorizationHandler, ExchangeExpireReqirementHandler>();
+builder.Services.AddScoped<IAuthorizationHandler, ViolenceRequiremntHandler>();
 builder.Services.ConfigureApplicationCookie(opt =>
 {
     var cookieBuilder = new CookieBuilder();
@@ -46,6 +47,10 @@ builder.Services.AddAuthorization(option =>
     option.AddPolicy("ExchangePolicy", opt =>
     {
         opt.AddRequirements(new ExchangeExpireRequirenment());
+    });
+    option.AddPolicy("ViolencePolicy", opt =>
+    {
+        opt.AddRequirements(new ViolenceRequirement());
     });
 });
 var app = builder.Build();

@@ -48,21 +48,26 @@ namespace AspNetIdentityCoreApp.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Email veya Sifre Yanlis");
                 return View();
             }
+            
 
+           
             var signInResult = await _signInManager.PasswordSignInAsync(hasUser, model.Password, model.RememberMe, true);
-
-            if (signInResult.Succeeded)
-            {
-                return Redirect(returnUrl);
-            }
             if (signInResult.IsLockedOut)
             {
                 ModelState.AddModelErrorList(new List<string>() { "3 Defa Yanlis Girdiniz 3 Dk Giremeyeceksiniz." });
                 return View();
             }
-            ModelState.AddModelErrorList(new List<string>() { $"Email veya Sifre Yanlis", $" (Basarisiz Giris Sayisi : {await _UserManager.GetAccessFailedCountAsync(hasUser)})" });
-
-            return View();
+            if (!signInResult.Succeeded)
+            {
+                ModelState.AddModelErrorList(new List<string>() { $"Email veya Sifre Yanlis", $" (Basarisiz Giris Sayisi : {await _UserManager.GetAccessFailedCountAsync(hasUser)})" });
+                return View();
+            }
+            if (hasUser.BirthDate.HasValue)
+            {
+                await _signInManager.SignInWithClaimsAsync(hasUser, model.RememberMe, new[] { new Claim("birthdate", hasUser.BirthDate.Value.ToString()) });
+            }
+            return Redirect(returnUrl);
+            
         }
         public IActionResult SignUp()
         {
@@ -85,13 +90,13 @@ namespace AspNetIdentityCoreApp.Web.Controllers
             var exchangeExpireClaim = new Claim("ExchangeExpireDate", DateTime.Now.AddDays(10).ToString());
             var user = await _UserManager.FindByNameAsync(request.UserName);
             var claimResult = await _UserManager.AddClaimAsync(user, exchangeExpireClaim);
-            if(!claimResult.Succeeded)
+            if (!claimResult.Succeeded)
             {
                 ModelState.AddModelErrorList(identityResult.Errors.Select(x => x.Description).ToList());
                 return View();
             }
             TempData["SuccesMessage"] = "Uyelik Kayit Islemi Basarila Gerceklestirmistir.";
-            
+
             return View(nameof(HomeController.SignUp));
 
         }

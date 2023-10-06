@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.FileProviders;
+using System.Collections.Generic;
 using System.Security.Claims;
 
 namespace AspNetIdentityCoreApp.Web.Controllers
@@ -124,7 +125,14 @@ namespace AspNetIdentityCoreApp.Web.Controllers
             }
             await _userManager.UpdateSecurityStampAsync(currentUser);
             await _signInManager.SignOutAsync();
-            await _signInManager.SignInAsync(currentUser, true);
+            if (request.BirthDate.HasValue)
+            {
+                await _signInManager.SignInWithClaimsAsync(currentUser, true, new[] { new Claim("birthdate", request.BirthDate.Value.ToString()) });
+            }
+            else
+            {
+                await _signInManager.SignInAsync(currentUser, true);
+            }
             TempData["succesMessage"] = "Uye bilgileri guncellenmistir";
 
             var userEditViewModel = new UserEditViewModel()
@@ -161,8 +169,16 @@ namespace AspNetIdentityCoreApp.Web.Controllers
         {
             return View();
         }
+        
         [Authorize(Policy = "ExchangePolicy")]
         public IActionResult ExchangePolicy()
+        {
+            return View();
+        }
+
+        [Authorize(Policy = "ViolencePolicy")]
+        [HttpGet]
+        public IActionResult ViolencePolicy()
         {
             return View();
         }
